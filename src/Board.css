@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 400px;
+  justify-content: center;
+  width: 400px;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  height: calc(400px / 3);
+  margin-top: 5px;
+  margin-bottom: 5px;
+  width: 100%;
+}
