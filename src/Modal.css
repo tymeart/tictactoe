@@ -1,0 +1,26 @@
+.Modal {
+  background-color: gold;
+  border: 3px solid white;
+  height: 150px;
+  left: 50%;
+  /* move back half the modal's dimensions in order to center */
+  margin-left: -125px;
+  margin-top: -75px;
+  position: absolute;
+  top: 40%;
+  width: 250px;
+  z-index: 1;
+}
+
+button {
+  background: none;
+  border: none;
+  font-size: 60px;
+  height: 50%;
+  margin: 0 10px;
+  width: 40%;
+}
+
+button:hover {
+  cursor: pointer;
+}
