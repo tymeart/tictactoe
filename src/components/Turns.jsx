@@ -1,11 +1,11 @@
 import React from 'react';
 import '../Turns.css';
 
-const Turns = () => {
+const Turns = ({ yourMarker, compMarker }) => {
   return (
     <div className="Turns">
-      <div>X - You</div>
-      <div>O - Computer</div>
+      <div>Your turn! { yourMarker }</div>
+      <div>Computer's turn! { compMarker }</div>
     </div>
   );
 }
