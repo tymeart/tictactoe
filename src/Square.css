@@ -1,9 +1,9 @@
 .Square {
-  background-color: rgb(139, 82, 139);
+  background-color: skyblue;
   color: white;
   font-size: 80px;
   height: 100%;
-  line-height: calc(390px / 3);
+  line-height: 120px;
   margin-left: 5px;
   margin-right: 5px;
   width: 100%;
