@@ -38,7 +38,10 @@ class Game extends Component {
             /> 
           }
 
-          <Board />
+          <Board 
+            yourMarker={this.state.yourMarker}
+            compMarker={this.state.compMarker}
+          />
           <Turns 
             yourMarker={this.state.yourMarker}
             compMarker={this.state.compMarker}
