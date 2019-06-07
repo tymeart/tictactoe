@@ -16,11 +16,14 @@ class Board extends Component {
   }
 
   handleSquareClick = (e) => {
-    const row = e.target.dataset.row;
-    const col = e.target.dataset.col;
-    let newStatus = this.state.status;
-    newStatus[row][col] = this.props.yourMarker;
-    this.setState({status: newStatus});
+    if (this.props.yourTurn) {
+      const row = e.target.dataset.row;
+      const col = e.target.dataset.col;
+      let newStatus = this.state.status;
+      newStatus[row][col] = this.props.yourMarker;
+      this.setState({ status: newStatus });
+      this.props.changeTurns();
+    }
   }
 
   render() {

@@ -17,13 +17,22 @@ class Game extends Component {
   }
   
   handleOptionClick = (e) => {
-    let compMarker = e.target.innerHTML === 'X' ? 'O' : 'X';
+    const compMarker = e.target.innerHTML === 'X' ? 'O' : 'X';
 
     this.setState({
-      atStart: false, 
+      atStart: false,
+      yourTurn: true, 
       yourMarker: e.target.innerHTML,
       compMarker: compMarker
     });
+  }
+
+  changeTurns = () => {
+    if (this.state.yourTurn) {
+      this.setState({ yourTurn: false, compTurn: true });
+    } else {
+      this.setState({ yourTurn: true, compTurn: false });
+    }
   }
 
   render() {
@@ -39,10 +48,15 @@ class Game extends Component {
           }
 
           <Board 
+            yourTurn={this.state.yourTurn}
+            compTurn={this.state.compTurn}
             yourMarker={this.state.yourMarker}
             compMarker={this.state.compMarker}
+            changeTurns={this.changeTurns}
           />
           <Turns 
+            yourTurn={this.state.yourTurn}
+            compTurn={this.state.compTurn}
             yourMarker={this.state.yourMarker}
             compMarker={this.state.compMarker}
           />
