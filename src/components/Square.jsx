@@ -1,12 +1,11 @@
 import React from 'react';
 import '../Square.css';
 
-const Square = ({ row, col, marker, handleSquareClick }) => {
+const Square = ({ position, marker, handleSquareClick }) => {
   return (
     <div 
       className="Square"
-      data-row={row}
-      data-col={col}
+      data-position={position}
       onClick={handleSquareClick}
     >
       { marker }

@@ -7,21 +7,17 @@ class Board extends Component {
     super(props);
 
     this.state = {
-      status: [
-        [],
-        [],
-        []
-      ]
+      spaces: ['', '', '', '', '', '', '', '', '']
     };
   }
 
   handleSquareClick = (e) => {
     if (this.props.yourTurn) {
-      const row = e.target.dataset.row;
-      const col = e.target.dataset.col;
-      let newStatus = this.state.status;
-      newStatus[row][col] = this.props.yourMarker;
-      this.setState({ status: newStatus });
+      // update status to reflect marked square
+      const position = e.target.dataset.position;
+      let newStatus = this.state.spaces;
+      newStatus[position] = this.props.yourMarker;
+      this.setState({ spaces: newStatus });
       this.props.changeTurns();
     }
   }
@@ -31,61 +27,52 @@ class Board extends Component {
       <div className="container">
         <div className="row">
           <Square 
-            row="0" 
-            col="0" 
-            marker={this.state.status[0][0]} 
+            position="0" 
+            marker={this.state.spaces[0]} 
             handleSquareClick={this.handleSquareClick} 
           />
           <Square 
-            row="0" 
-            col="1" 
-            marker={this.state.status[0][1]} 
+            position="1"
+            marker={this.state.spaces[1]} 
             handleSquareClick={this.handleSquareClick}             
           />
           <Square 
-            row="0" 
-            col="2" 
-            marker={this.state.status[0][2]} 
+            position="2"
+            marker={this.state.spaces[2]} 
             handleSquareClick={this.handleSquareClick}           
           />
         </div>
         <div className="row">
           <Square 
-            row="1" 
-            col="0" 
-            marker={this.state.status[1][0]} 
+            position="3"
+            marker={this.state.spaces[3]} 
             handleSquareClick={this.handleSquareClick} 
           />
           <Square 
-            row="1" 
-            col="1" 
-            marker={this.state.status[1][1]} 
+            position="4"
+            marker={this.state.spaces[4]} 
             handleSquareClick={this.handleSquareClick} 
           />
           <Square 
-            row="1" 
-            col="2" 
-            marker={this.state.status[1][2]} 
+            position="5" 
+            marker={this.state.spaces[5]} 
             handleSquareClick={this.handleSquareClick} 
           />
         </div>
         <div className="row">
           <Square 
-            row="2" 
-            col="0" 
-            marker={this.state.status[2][0]} 
+            position="6" 
+            marker={this.state.spaces[6]} 
             handleSquareClick={this.handleSquareClick}             
           />
           <Square 
-            row="2" 
-            col="1" 
-            marker={this.state.status[2][1]} 
+            position="7"
+            marker={this.state.spaces[7]} 
             handleSquareClick={this.handleSquareClick} 
           />
           <Square 
-            row="2" 
-            col="2" 
-            marker={this.state.status[2][2]} 
+            position="8"
+            marker={this.state.spaces[8]} 
             handleSquareClick={this.handleSquareClick} 
           />
         </div>
