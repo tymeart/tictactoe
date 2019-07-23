@@ -57,11 +57,11 @@ class Board extends Component {
   }
 
   handleSquareClick = (e) => {
-    if (this.props.yourTurn) {
+    if (this.props.playerTurn === 'human') {
       // update status to reflect marked square
       const position = e.target.dataset.position;
       let newStatus = this.state.spaces;
-      newStatus[position] = this.props.yourMarker;
+      newStatus[position] = this.props.humanMarker;
       this.setState({ spaces: newStatus });
       this.props.changeTurns();
     }

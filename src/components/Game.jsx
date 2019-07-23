@@ -9,9 +9,8 @@ class Game extends Component {
     super(props);
     this.state = {
       atStart: true,
-      yourTurn: false,
-      compTurn: false,
-      yourMarker: null,
+      playerTurn: 'human',
+      humanMarker: null,
       compMarker: null
     };
   }
@@ -21,17 +20,16 @@ class Game extends Component {
 
     this.setState({
       atStart: false,
-      yourTurn: true, 
-      yourMarker: e.target.innerHTML,
+      humanMarker: e.target.innerHTML,
       compMarker: compMarker
     });
   }
 
   changeTurns = () => {
-    if (this.state.yourTurn) {
-      this.setState({ yourTurn: false, compTurn: true });
+    if (this.state.playerTurn === 'human') {
+      this.setState({ playerTurn: 'computer' });
     } else {
-      this.setState({ yourTurn: true, compTurn: false });
+      this.setState({ playerTurn: 'human' });
     }
   }
 
@@ -48,16 +46,14 @@ class Game extends Component {
           }
 
           <Board 
-            yourTurn={this.state.yourTurn}
-            compTurn={this.state.compTurn}
-            yourMarker={this.state.yourMarker}
+            playerTurn={this.state.playerTurn}
+            humanMarker={this.state.humanMarker}
             compMarker={this.state.compMarker}
             changeTurns={this.changeTurns}
           />
           <Turns 
-            yourTurn={this.state.yourTurn}
-            compTurn={this.state.compTurn}
-            yourMarker={this.state.yourMarker}
+            playerTurn={this.state.playerTurn}
+            humanMarker={this.state.humanMarker}
             compMarker={this.state.compMarker}
           />
         </main>
