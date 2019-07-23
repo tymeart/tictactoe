@@ -11,6 +11,51 @@ class Board extends Component {
     };
   }
 
+  getOpenSpaces() {
+    let openSpaces = [];
+
+    for (let i = 0; i < this.state.spaces.length; i++) {
+      if (this.state.spaces[i] === '') { openSpaces.push(i); }
+    } 
+
+    return openSpaces;
+  }
+
+  // pass in either 'X' or 'O'
+  checkWin(marker) {
+    // const winningCombos = [
+    //   [0, 1, 2],
+    //   [3, 4, 5],
+    //   [6, 7, 8],
+    //   [0, 3, 6],
+    //   [1, 4, 7],
+    //   [2, 5, 8],
+    //   [0, 4, 8],
+    //   [2, 4, 6]
+    // ];
+
+    let playerChecked = this.props.humanMarker === marker ? 'human' : 'computer';
+
+    if (
+        this.state.spaces[0] === marker && this.state.spaces[1] === marker && this.state.spaces[2] === marker ||
+        this.state.spaces[3] === marker && this.state.spaces[4] === marker && this.state.spaces[5] === marker ||
+        this.state.spaces[6] === marker && this.state.spaces[7] === marker && this.state.spaces[8] === marker ||
+        this.state.spaces[0] === marker && this.state.spaces[3] === marker && this.state.spaces[6] === marker ||
+        this.state.spaces[1] === marker && this.state.spaces[4] === marker && this.state.spaces[7] === marker ||
+        this.state.spaces[2] === marker && this.state.spaces[5] === marker && this.state.spaces[8] === marker ||
+        this.state.spaces[0] === marker && this.state.spaces[4] === marker && this.state.spaces[8] === marker ||
+        this.state.spaces[2] === marker && this.state.spaces[4] === marker && this.state.spaces[6] === marker 
+    ) {
+      if (playerChecked === 'human') {
+        console.log('You won!');
+      } else {
+        console.log('Aww, you lost.');
+      }
+    }
+      
+    // if openSpaces.length === 0, no more moves left, tie
+  }
+
   handleSquareClick = (e) => {
     if (this.props.yourTurn) {
       // update status to reflect marked square
