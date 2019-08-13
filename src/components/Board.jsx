@@ -52,9 +52,12 @@ class Board extends Component {
       // update status to reflect marked square
       const position = e.target.dataset.position;
       let newStatus = this.state.spaces;
-      newStatus[position] = this.props.humanMarker;
-      this.setState({ spaces: newStatus });
-      this.props.changeTurns();
+      // only mark the square if it's empty
+      if (newStatus[position] === '') {
+        newStatus[position] = this.props.humanMarker;
+        this.setState({ spaces: newStatus });
+        this.props.changeTurns();
+      }
     }
   }
 
