@@ -23,17 +23,6 @@ class Board extends Component {
 
   // pass in either 'X' or 'O'
   checkWin(marker) {
-    // const winningCombos = [
-    //   [0, 1, 2],
-    //   [3, 4, 5],
-    //   [6, 7, 8],
-    //   [0, 3, 6],
-    //   [1, 4, 7],
-    //   [2, 5, 8],
-    //   [0, 4, 8],
-    //   [2, 4, 6]
-    // ];
-
     let playerChecked = this.props.humanMarker === marker ? 'human' : 'computer';
 
     if (
@@ -53,7 +42,9 @@ class Board extends Component {
       }
     }
       
-    // if openSpaces.length === 0, no more moves left, tie
+    if (this.getOpenSpaces().length === 0) {
+      console.log('It\'s a tie!');
+    }
   }
 
   handleSquareClick = (e) => {
