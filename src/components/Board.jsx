@@ -71,6 +71,18 @@ class Board extends Component {
       }
     }
   }
+
+  componentDidUpdate() {
+    // computer's move
+    if (this.props.playerTurn === 'computer') {
+      const numOpenSpaces = this.getOpenSpaces().length;
+      const randomPosition = Math.floor(Math.random * Math.floor(numOpenSpaces));
+      let newStatus = this.state.spaces;
+      newStatus[randomPosition] = this.props.compMarker;
+      this.setState({ spaces: newStatus });
+      if (this.isGameOverFor(this.props.compMarker)) {
+        console.log('GAME OVER');
+      } else {
         this.props.changeTurns();
       }
     }
