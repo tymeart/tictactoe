@@ -26,14 +26,14 @@ class Board extends Component {
     let playerChecked = this.props.humanMarker === marker ? 'human' : 'computer';
 
     if (
-        this.state.spaces[0] === marker && this.state.spaces[1] === marker && this.state.spaces[2] === marker ||
-        this.state.spaces[3] === marker && this.state.spaces[4] === marker && this.state.spaces[5] === marker ||
-        this.state.spaces[6] === marker && this.state.spaces[7] === marker && this.state.spaces[8] === marker ||
-        this.state.spaces[0] === marker && this.state.spaces[3] === marker && this.state.spaces[6] === marker ||
-        this.state.spaces[1] === marker && this.state.spaces[4] === marker && this.state.spaces[7] === marker ||
-        this.state.spaces[2] === marker && this.state.spaces[5] === marker && this.state.spaces[8] === marker ||
-        this.state.spaces[0] === marker && this.state.spaces[4] === marker && this.state.spaces[8] === marker ||
-        this.state.spaces[2] === marker && this.state.spaces[4] === marker && this.state.spaces[6] === marker 
+        (this.state.spaces[0] === marker && this.state.spaces[1] === marker && this.state.spaces[2] === marker) ||
+        (this.state.spaces[3] === marker && this.state.spaces[4] === marker && this.state.spaces[5] === marker) ||
+        (this.state.spaces[6] === marker && this.state.spaces[7] === marker && this.state.spaces[8] === marker) ||
+        (this.state.spaces[0] === marker && this.state.spaces[3] === marker && this.state.spaces[6] === marker) ||
+        (this.state.spaces[1] === marker && this.state.spaces[4] === marker && this.state.spaces[7] === marker) ||
+        (this.state.spaces[2] === marker && this.state.spaces[5] === marker && this.state.spaces[8] === marker) ||
+        (this.state.spaces[0] === marker && this.state.spaces[4] === marker && this.state.spaces[8] === marker) ||
+        (this.state.spaces[2] === marker && this.state.spaces[4] === marker && this.state.spaces[6] === marker) 
     ) {
       // a win or tie
       if (playerChecked === 'human') {
