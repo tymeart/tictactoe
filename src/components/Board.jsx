@@ -22,7 +22,7 @@ class Board extends Component {
   }
 
   // pass in either 'X' or 'O'
-  checkWin(marker) {
+  isGameOverFor(marker) {
     let playerChecked = this.props.humanMarker === marker ? 'human' : 'computer';
 
     if (
@@ -35,15 +35,20 @@ class Board extends Component {
         this.state.spaces[0] === marker && this.state.spaces[4] === marker && this.state.spaces[8] === marker ||
         this.state.spaces[2] === marker && this.state.spaces[4] === marker && this.state.spaces[6] === marker 
     ) {
+      // a win or tie
       if (playerChecked === 'human') {
         console.log('You won!');
-      } else {
+        return true;
+      } else if (playerChecked === 'computer') {
         console.log('Aww, you lost.');
+        return true;
+      } else if (this.getOpenSpaces().length === 0) {
+        console.log('It\'s a tie!');
+        return true;
       }
-    }
-      
-    if (this.getOpenSpaces().length === 0) {
-      console.log('It\'s a tie!');
+    } else {
+      // no win, no tie yet
+      return false;
     }
   }
 
@@ -56,6 +61,16 @@ class Board extends Component {
       if (newStatus[position] === '') {
         newStatus[position] = this.props.humanMarker;
         this.setState({ spaces: newStatus });
+        // check for a win or a tie
+        // if no win or tie, continue game by changing turns
+        if (this.isGameOverFor(this.props.humanMarker)) {
+          console.log('GAME OVER');
+        } else {
+          this.props.changeTurns();          
+        }
+      }
+    }
+  }
         this.props.changeTurns();
       }
     }
