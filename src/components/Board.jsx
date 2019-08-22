@@ -56,7 +56,7 @@ class Board extends Component {
     if (this.props.playerTurn === 'human') {
       // update status to reflect marked square
       const position = e.target.dataset.position;
-      let newStatus = this.state.spaces;
+      let newStatus = this.state.spaces.slice();
       // only mark the square if it's empty
       if (newStatus[position] === '') {
         newStatus[position] = this.props.humanMarker;
@@ -77,7 +77,7 @@ class Board extends Component {
     if (this.props.playerTurn === 'computer') {
       const numOpenSpaces = this.getOpenSpaces().length;
       const randomPosition = Math.floor(Math.random * Math.floor(numOpenSpaces));
-      let newStatus = this.state.spaces;
+      let newStatus = this.state.spaces.slice();
       newStatus[randomPosition] = this.props.compMarker;
       this.setState({ spaces: newStatus });
       if (this.isGameOverFor(this.props.compMarker)) {
