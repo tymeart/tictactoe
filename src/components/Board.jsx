@@ -53,8 +53,11 @@ class Board extends Component {
   }
 
   handleSquareClick = (e) => {
-    if (this.props.playerTurn === 'human') {
-      // update status to reflect marked square
+    // check for game over
+    if (this.isGameOverFor(this.props.humanMarker) || this.isGameOverFor(this.props.compMarker)) {
+      console.log('GAME OVER');
+      // return early
+    } else if (this.props.playerTurn === 'human') {
       const position = e.target.dataset.position;
       let newStatus = this.state.spaces.slice();
       // only mark the square if it's empty
@@ -66,17 +69,21 @@ class Board extends Component {
         if (this.isGameOverFor(this.props.humanMarker)) {
           console.log('GAME OVER');
         } else {
-          this.props.changeTurns();          
+          this.props.changeTurns();
         }
       }
     }
   }
 
   componentDidUpdate() {
+    // check for game over
     // computer's move
-    if (this.props.playerTurn === 'computer') {
-      const numOpenSpaces = this.getOpenSpaces().length;
-      const randomPosition = Math.floor(Math.random * Math.floor(numOpenSpaces));
+    if (this.isGameOverFor(this.props.humanMarker) || this.isGameOverFor(this.props.compMarker)) {
+      console.log('GAME OVER');
+      // return early
+    } else if (this.props.playerTurn === 'computer') {
+      const openSpaces = this.getOpenSpaces();
+      const randomPosition = openSpaces[Math.floor(Math.random() * Math.floor(openSpaces.length))];
       let newStatus = this.state.spaces.slice();
       newStatus[randomPosition] = this.props.compMarker;
       this.setState({ spaces: newStatus });
