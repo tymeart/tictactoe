@@ -35,17 +35,17 @@ class Board extends Component {
         (this.state.spaces[0] === marker && this.state.spaces[4] === marker && this.state.spaces[8] === marker) ||
         (this.state.spaces[2] === marker && this.state.spaces[4] === marker && this.state.spaces[6] === marker) 
     ) {
-      // a win or tie
+      // a win
       if (playerChecked === 'human') {
         console.log('You won!');
         return true;
       } else if (playerChecked === 'computer') {
         console.log('Aww, you lost.');
         return true;
-      } else if (this.getOpenSpaces().length === 0) {
-        console.log('It\'s a tie!');
-        return true;
       }
+    } else if (this.getOpenSpaces().length === 0) {
+      console.log('It\'s a tie!');
+      return true;
     } else {
       // no win, no tie yet
       return false;
