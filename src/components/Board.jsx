@@ -78,11 +78,11 @@ class Board extends Component {
   componentDidUpdate() {
     // check for game over
     // computer's move
+    const openSpaces = this.getOpenSpaces();
     if (this.isGameOverFor(this.props.humanMarker) || this.isGameOverFor(this.props.compMarker)) {
       console.log('GAME OVER');
       // return early
-    } else if (this.props.playerTurn === 'computer') {
-      const openSpaces = this.getOpenSpaces();
+    } else if (this.props.playerTurn === 'computer' && openSpaces.length !== 0) {
       const randomPosition = openSpaces[Math.floor(Math.random() * Math.floor(openSpaces.length))];
       let newStatus = this.state.spaces.slice();
       newStatus[randomPosition] = this.props.compMarker;
