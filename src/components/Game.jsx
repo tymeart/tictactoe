@@ -8,7 +8,8 @@ class Game extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      atStart: true,
+      atGameStart: true,
+      winner: null,
       playerTurn: 'human',
       humanMarker: null,
       compMarker: null
@@ -19,10 +20,37 @@ class Game extends Component {
     const compMarker = e.target.innerHTML === 'X' ? 'O' : 'X';
 
     this.setState({
-      atStart: false,
+      atGameStart: false,
       humanMarker: e.target.innerHTML,
       compMarker: compMarker
     });
+  }
+
+  handleRestartClick = () => {
+    this.setState({
+      atGameStart: true,
+      winner: null,
+      playerTurn: 'human',
+      humanMarker: null,
+      compMarker: null
+    });
+  }
+
+  getEndState = (player) => {
+    switch (player) {
+      case 'human':
+        this.setState({ winner: 'human' });
+        break;
+      case 'computer':
+        this.setState({ winner: 'computer' });
+        break;
+      case 'tie':
+        this.setState({ winner: 'tie' });
+        break;
+      default: 
+        console.log('No game over?');
+        break;
+    }
   }
 
   changeTurns = () => {
@@ -34,14 +62,24 @@ class Game extends Component {
   }
 
   render() {
+    
+
     return (
       <div className="Game">
         <h1>Tic Tac Toe</h1>
         <main>
-          {this.state.atStart && 
+          {this.state.atGameStart && 
             <Modal 
               type="chooseOption" 
               handleOptionClick={this.handleOptionClick} 
+            /> 
+          }
+
+          {this.state.winner && 
+            <Modal 
+              type="gameOver" 
+              winner={this.state.winner}
+              handleRestartClick={this.handleRestartClick} 
             /> 
           }
 
@@ -49,6 +87,8 @@ class Game extends Component {
             playerTurn={this.state.playerTurn}
             humanMarker={this.state.humanMarker}
             compMarker={this.state.compMarker}
+            getEndState={this.getEndState}
+            winner={this.state.winner}
             changeTurns={this.changeTurns}
           />
           <Turns 

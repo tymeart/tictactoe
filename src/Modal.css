@@ -12,7 +12,11 @@
   z-index: 1;
 }
 
-button {
+button:hover {
+  cursor: pointer;
+}
+
+.markerChoice {
   background: none;
   border: none;
   font-size: 60px;
@@ -21,6 +25,8 @@ button {
   width: 40%;
 }
 
-button:hover {
-  cursor: pointer;
+.restart {
+  background: white;
+  border: 3px solid white;
+  font-size: 20px;
 }

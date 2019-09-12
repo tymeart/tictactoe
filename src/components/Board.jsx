@@ -37,14 +37,14 @@ class Board extends Component {
     ) {
       // a win
       if (playerChecked === 'human') {
-        console.log('You won!');
+        this.props.getEndState('human');
         return true;
       } else if (playerChecked === 'computer') {
-        console.log('Aww, you lost.');
+        this.props.getEndState('computer');
         return true;
       }
     } else if (this.getOpenSpaces().length === 0) {
-      console.log('It\'s a tie!');
+      this.props.getEndState('tie');
       return true;
     } else {
       // no win, no tie yet
@@ -69,9 +69,9 @@ class Board extends Component {
     // check for game over
     // computer's move
     const openSpaces = this.getOpenSpaces();
-    if (this.isGameOverFor(this.props.humanMarker) || this.isGameOverFor(this.props.compMarker)) {
+    if (this.props.winner === null && (this.isGameOverFor(this.props.humanMarker) || this.isGameOverFor(this.props.compMarker))) {
       console.log('GAME OVER');
-      // return early
+      return;
     } else if (this.props.playerTurn === 'computer' && openSpaces.length !== 0) {
       const randomPosition = openSpaces[Math.floor(Math.random() * Math.floor(openSpaces.length))];
       let newStatus = this.state.spaces.slice();
