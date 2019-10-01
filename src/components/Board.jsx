@@ -1,143 +1,63 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Square from './Square';
 import '../Board.css';
 
-class Board extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      spaces: ['', '', '', '', '', '', '', '', '']
-    };
-  }
-
-  getOpenSpaces() {
-    let openSpaces = [];
-
-    for (let i = 0; i < this.state.spaces.length; i++) {
-      if (this.state.spaces[i] === '') { openSpaces.push(i); }
-    } 
-
-    return openSpaces;
-  }
-
-  // pass in either 'X' or 'O'
-  isGameOverFor(marker) {
-    let playerChecked = this.props.humanMarker === marker ? 'human' : 'computer';
-
-    if (
-        (this.state.spaces[0] === marker && this.state.spaces[1] === marker && this.state.spaces[2] === marker) ||
-        (this.state.spaces[3] === marker && this.state.spaces[4] === marker && this.state.spaces[5] === marker) ||
-        (this.state.spaces[6] === marker && this.state.spaces[7] === marker && this.state.spaces[8] === marker) ||
-        (this.state.spaces[0] === marker && this.state.spaces[3] === marker && this.state.spaces[6] === marker) ||
-        (this.state.spaces[1] === marker && this.state.spaces[4] === marker && this.state.spaces[7] === marker) ||
-        (this.state.spaces[2] === marker && this.state.spaces[5] === marker && this.state.spaces[8] === marker) ||
-        (this.state.spaces[0] === marker && this.state.spaces[4] === marker && this.state.spaces[8] === marker) ||
-        (this.state.spaces[2] === marker && this.state.spaces[4] === marker && this.state.spaces[6] === marker) 
-    ) {
-      // a win
-      if (playerChecked === 'human') {
-        this.props.getEndState('human');
-        return true;
-      } else if (playerChecked === 'computer') {
-        this.props.getEndState('computer');
-        return true;
-      }
-    } else if (this.getOpenSpaces().length === 0) {
-      this.props.getEndState('tie');
-      return true;
-    } else {
-      // no win, no tie yet
-      return false;
-    }
-  }
-
-  handleSquareClick = (e) => {
-    if (this.props.playerTurn === 'human') {
-      const position = e.target.dataset.position;
-      let newStatus = this.state.spaces.slice();
-      // only mark the square if it's empty
-      if (newStatus[position] === '') {
-        newStatus[position] = this.props.humanMarker;
-        this.setState({ spaces: newStatus });
-        this.props.changeTurns();
-      }
-    }
-  }
-
-  componentDidUpdate() {
-    // check for game over
-    // computer's move
-    const openSpaces = this.getOpenSpaces();
-    if (this.props.winner === null && (this.isGameOverFor(this.props.humanMarker) || this.isGameOverFor(this.props.compMarker))) {
-      console.log('GAME OVER');
-      return;
-    } else if (this.props.playerTurn === 'computer' && openSpaces.length !== 0) {
-      const randomPosition = openSpaces[Math.floor(Math.random() * Math.floor(openSpaces.length))];
-      let newStatus = this.state.spaces.slice();
-      newStatus[randomPosition] = this.props.compMarker;
-      this.setState({ spaces: newStatus });
-      this.props.changeTurns();
-    }
-  }
-
-  render() {
-    return (
-      <div className="container">
-        <div className="row">
-          <Square 
-            position="0" 
-            marker={this.state.spaces[0]} 
-            handleSquareClick={this.handleSquareClick} 
-          />
-          <Square 
-            position="1"
-            marker={this.state.spaces[1]} 
-            handleSquareClick={this.handleSquareClick}             
-          />
-          <Square 
-            position="2"
-            marker={this.state.spaces[2]} 
-            handleSquareClick={this.handleSquareClick}           
-          />
-        </div>
-        <div className="row">
-          <Square 
-            position="3"
-            marker={this.state.spaces[3]} 
-            handleSquareClick={this.handleSquareClick} 
-          />
-          <Square 
-            position="4"
-            marker={this.state.spaces[4]} 
-            handleSquareClick={this.handleSquareClick} 
-          />
-          <Square 
-            position="5" 
-            marker={this.state.spaces[5]} 
-            handleSquareClick={this.handleSquareClick} 
-          />
-        </div>
-        <div className="row">
-          <Square 
-            position="6" 
-            marker={this.state.spaces[6]} 
-            handleSquareClick={this.handleSquareClick}             
-          />
-          <Square 
-            position="7"
-            marker={this.state.spaces[7]} 
-            handleSquareClick={this.handleSquareClick} 
-          />
-          <Square 
-            position="8"
-            marker={this.state.spaces[8]} 
-            handleSquareClick={this.handleSquareClick} 
-          />
-        </div>
+function Board(props) {
+  return (
+    <div className="container">
+      <div className="row">
+        <Square 
+          position="0" 
+          marker={props.spaces[0]} 
+          handleSquareClick={props.handleSquareClick} 
+        />
+        <Square 
+          position="1"
+          marker={props.spaces[1]} 
+          handleSquareClick={props.handleSquareClick}             
+        />
+        <Square 
+          position="2"
+          marker={props.spaces[2]} 
+          handleSquareClick={props.handleSquareClick}           
+        />
       </div>
+      <div className="row">
+        <Square 
+          position="3"
+          marker={props.spaces[3]} 
+          handleSquareClick={props.handleSquareClick} 
+        />
+        <Square 
+          position="4"
+          marker={props.spaces[4]} 
+          handleSquareClick={props.handleSquareClick} 
+        />
+        <Square 
+          position="5" 
+          marker={props.spaces[5]} 
+          handleSquareClick={props.handleSquareClick} 
+        />
+      </div>
+      <div className="row">
+        <Square 
+          position="6" 
+          marker={props.spaces[6]} 
+          handleSquareClick={props.handleSquareClick}             
+        />
+        <Square 
+          position="7"
+          marker={props.spaces[7]} 
+          handleSquareClick={props.handleSquareClick} 
+        />
+        <Square 
+          position="8"
+          marker={props.spaces[8]} 
+          handleSquareClick={props.handleSquareClick} 
+        />
+      </div>
+    </div>
     );
-  }
 }
 
 export default Board;

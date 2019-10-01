@@ -26,6 +26,19 @@ class Game extends Component {
     });
   }
 
+  handleSquareClick = (e) => {
+    if (this.state.humanTurn && this.state.winner === null) {
+      const position = e.target.dataset.position;
+      let spaces = this.state.spaces.slice();
+      // only mark the square if it's empty
+      if (spaces[position] === '') {
+        spaces[position] = this.state.humanMarker;
+        this.setState({ spaces: spaces });
+        this.changeTurns();
+      }
+    }
+  }
+
   handleRestartClick = () => {
     this.setState({
       atGameStart: true,
@@ -53,17 +66,69 @@ class Game extends Component {
     }
   }
 
-  changeTurns = () => {
-    if (this.state.playerTurn === 'human') {
-      this.setState({ playerTurn: 'computer' });
+  changeTurns() {
+    this.setState({ humanTurn: !this.state.humanTurn });
+  }
+
+  getOpenSpaces() {
+    let openSpaces = [];
+    for (let i = 0; i < this.state.spaces.length; i++) {
+      if (this.state.spaces[i] === '') { openSpaces.push(i); }
+    }
+
+    return openSpaces;
+  }
+
+  // pass in either 'X' or 'O'
+  isGameOverFor(marker) {
+    let playerChecked = this.state.humanMarker === marker ? 'human' : 'computer';
+
+    if (
+      (this.state.spaces[0] === marker && this.state.spaces[1] === marker && this.state.spaces[2] === marker) ||
+      (this.state.spaces[3] === marker && this.state.spaces[4] === marker && this.state.spaces[5] === marker) ||
+      (this.state.spaces[6] === marker && this.state.spaces[7] === marker && this.state.spaces[8] === marker) ||
+      (this.state.spaces[0] === marker && this.state.spaces[3] === marker && this.state.spaces[6] === marker) ||
+      (this.state.spaces[1] === marker && this.state.spaces[4] === marker && this.state.spaces[7] === marker) ||
+      (this.state.spaces[2] === marker && this.state.spaces[5] === marker && this.state.spaces[8] === marker) ||
+      (this.state.spaces[0] === marker && this.state.spaces[4] === marker && this.state.spaces[8] === marker) ||
+      (this.state.spaces[2] === marker && this.state.spaces[4] === marker && this.state.spaces[6] === marker)
+    ) {
+      // a win
+      if (playerChecked === 'human') {
+        this.getEndState('human');
+        return true;
+      } else if (playerChecked === 'computer') {
+        this.getEndState('computer');
+        return true;
+      }
+    } else if (this.getOpenSpaces().length === 0) {
+      this.getEndState('tie');
+      return true;
     } else {
-      this.setState({ playerTurn: 'human' });
+      // no win, no tie yet
+      return false;
+    }
+  }
+
+  componentDidUpdate() {
+    // check for game over
+    // computer's move
+
+    // need to delay
+    const openSpaces = this.getOpenSpaces();
+    if (this.state.winner === null && (this.isGameOverFor(this.state.humanMarker) || this.isGameOverFor(this.state.compMarker))) {
+      console.log('GAME OVER');
+      return;
+    } else if (!this.state.humanTurn && openSpaces.length !== 0) {
+      const randomPosition = openSpaces[Math.floor(Math.random() * Math.floor(openSpaces.length))];
+      let spaces = this.state.spaces.slice();
+      spaces[randomPosition] = this.state.compMarker;
+      this.setState({ spaces: spaces });
+      this.changeTurns();
     }
   }
 
   render() {
-    
-
     return (
       <div className="Game">
         <h1>Tic Tac Toe</h1>
@@ -84,12 +149,8 @@ class Game extends Component {
           }
 
           <Board 
-            playerTurn={this.state.playerTurn}
-            humanMarker={this.state.humanMarker}
-            compMarker={this.state.compMarker}
-            getEndState={this.getEndState}
-            winner={this.state.winner}
-            changeTurns={this.changeTurns}
+            spaces={this.state.spaces}
+            handleSquareClick={this.handleSquareClick}
           />
           <Turns 
             playerTurn={this.state.playerTurn}
