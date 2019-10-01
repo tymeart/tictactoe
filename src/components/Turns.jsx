@@ -1,10 +1,10 @@
 import React from 'react';
 import '../Turns.css';
 
-const Turns = ({ playerTurn, humanMarker, compMarker }) => {
+const Turns = ({ humanTurn, humanMarker, compMarker }) => {
   return (
     <div className="Turns">
-      { playerTurn === 'human' ? 'Your turn' : 'Computer\'s turn' }
+      { humanTurn ? 'Your turn' : 'Computer\'s turn' }
     </div>
   );
 }

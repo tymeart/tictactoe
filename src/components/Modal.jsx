@@ -1,7 +1,7 @@
 import React from 'react';
 import '../Modal.css';
 
-const Modal = ({ type, winner, handleOptionClick, handleRestartClick }) => {
+const Modal = ({ type, winner, handleMarkerOptionClick, handleRestartClick }) => {
   let gameOverMsg;
   switch (winner) {
     case 'human':
@@ -14,7 +14,6 @@ const Modal = ({ type, winner, handleOptionClick, handleRestartClick }) => {
       gameOverMsg = 'It\'s a tie!';
       break;
     default:
-      console.log('No game over?');
       break;
   }
 
@@ -22,8 +21,8 @@ const Modal = ({ type, winner, handleOptionClick, handleRestartClick }) => {
     return (
       <div className="Modal">
         <p>Choose your marker: </p>
-        <button type="button" className="markerChoice" onClick={handleOptionClick}>X</button>
-        <button type="button" className="markerChoice" onClick={handleOptionClick}>O</button>
+        <button type="button" className="markerChoice" onClick={handleMarkerOptionClick}>X</button>
+        <button type="button" className="markerChoice" onClick={handleMarkerOptionClick}>O</button>
       </div>
     );
   } else if (type === 'gameOver') {

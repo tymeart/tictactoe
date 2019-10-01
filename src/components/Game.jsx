@@ -10,13 +10,14 @@ class Game extends Component {
     this.state = {
       atGameStart: true,
       winner: null,
-      playerTurn: 'human',
+      humanTurn: true,
       humanMarker: null,
-      compMarker: null
+      compMarker: null,
+      spaces: Array(9).fill('')
     };
   }
   
-  handleOptionClick = (e) => {
+  handleMarkerOptionClick = (e) => {
     const compMarker = e.target.innerHTML === 'X' ? 'O' : 'X';
 
     this.setState({
@@ -43,7 +44,8 @@ class Game extends Component {
     this.setState({
       atGameStart: true,
       winner: null,
-      playerTurn: 'human',
+      spaces: Array(9).fill(''),
+      humanTurn: true,
       humanMarker: null,
       compMarker: null
     });
@@ -61,7 +63,6 @@ class Game extends Component {
         this.setState({ winner: 'tie' });
         break;
       default: 
-        console.log('No game over?');
         break;
     }
   }
@@ -136,7 +137,7 @@ class Game extends Component {
           {this.state.atGameStart && 
             <Modal 
               type="chooseOption" 
-              handleOptionClick={this.handleOptionClick} 
+              handleMarkerOptionClick={this.handleMarkerOptionClick} 
             /> 
           }
 
@@ -153,14 +154,14 @@ class Game extends Component {
             handleSquareClick={this.handleSquareClick}
           />
           <Turns 
-            playerTurn={this.state.playerTurn}
+            humanTurn={this.state.humanTurn}
             humanMarker={this.state.humanMarker}
             compMarker={this.state.compMarker}
           />
         </main>
       </div>
     );
+    }
   }
-}
 
 export default Game;
