@@ -120,16 +120,19 @@ class Game extends Component {
     if (this.state.winner === null && (this.isGameOverFor(this.state.humanMarker) || this.isGameOverFor(this.state.compMarker))) {
       console.log('GAME OVER');
       return;
-    } else if (!this.state.humanTurn && openSpaces.length !== 0) {
+    } else if (!this.state.humanTurn && openSpaces.length !== 0 && this.state.winner === null) {
       const randomPosition = openSpaces[Math.floor(Math.random() * Math.floor(openSpaces.length))];
       let spaces = this.state.spaces.slice();
       spaces[randomPosition] = this.state.compMarker;
-      this.setState({ spaces: spaces });
+      setTimeout(() => {
+        this.setState({ spaces: spaces });
+      }, 1200);
       this.changeTurns();
     }
   }
 
   render() {
+    console.log('human turn?:', this.state.humanTurn)
     return (
       <div className="Game">
         <h1>Tic Tac Toe</h1>
