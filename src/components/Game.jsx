@@ -41,26 +41,28 @@ class Game extends Component {
   }
 
   handleRestartClick = () => {
-    this.setState({
-      atGameStart: true,
-      winner: null,
-      spaces: Array(9).fill(''),
-      humanTurn: true,
-      humanMarker: null,
-      compMarker: null
-    });
+    setTimeout(() => {
+      this.setState({
+        atGameStart: true,
+        winner: null,
+        spaces: Array(9).fill(''),
+        humanTurn: true,
+        humanMarker: null,
+        compMarker: null
+      })
+     }, 300);
   }
 
   getEndState = (player) => {
     switch (player) {
       case 'human':
-        this.setState({ winner: 'human' });
+        setTimeout(() => this.setState({ winner: 'human' }), 600);
         break;
       case 'computer':
-        this.setState({ winner: 'computer' });
+        setTimeout(() => this.setState({ winner: 'computer' }), 600);
         break;
       case 'tie':
-        this.setState({ winner: 'tie' });
+        setTimeout(() => this.setState({ winner: 'tie' }), 600);
         break;
       default: 
         break;
@@ -132,7 +134,6 @@ class Game extends Component {
   }
 
   render() {
-    console.log('human turn?:', this.state.humanTurn)
     return (
       <div className="Game">
         <h1>Tic Tac Toe</h1>
