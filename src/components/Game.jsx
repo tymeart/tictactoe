@@ -117,7 +117,8 @@ class Game extends Component {
     // check for game over
     // computer's move
 
-    // need to delay
+    // extra rerender
+    // turns don't update in time ??
     const openSpaces = this.getOpenSpaces();
     if (this.state.winner === null && (this.isGameOverFor(this.state.humanMarker) || this.isGameOverFor(this.state.compMarker))) {
       console.log('GAME OVER');
